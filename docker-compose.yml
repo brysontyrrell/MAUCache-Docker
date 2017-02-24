@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  maucache:
+    build: .
+    container_name: maucache
+    restart: always
+    volumes:
+      - cache:/usr/share/nginx/html
+
+  nginx:
+    image: nginx:1.11
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+    volumes_from:
+      - maucache:ro
+
+volumes:
+  cache:
